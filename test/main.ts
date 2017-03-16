@@ -1,12 +1,22 @@
-import {BenchMarker, BenchMarkerListener} from "../src/BenchMarker";
-import * as ua from "ua-parser-js";
+import {BenchMarker, BenchMarkerHandler} from "../src/BenchMarker";
+import {Configuration} from "../src/Model";
 
 declare let navigator : {
-    connection:{type:any};
+    connection:{ type : string};
 };
 
-class MyBenchMarkerListener implements BenchMarkerListener{
-    onBatteryStatusChanged(battery){
+class MyBenchMarkerHandler implements BenchMarkerHandler{
+
+    onConnectionTypeChanged(conf: Configuration): void {
+        let connection = conf.getConnection();
+        document.querySelector('#connection').innerHTML = "<ul><li>type: " +
+            connection.type + "</li><li>downlinkMax: " +
+            String(connection.downlinkMax) + " Mbps</li></ul>";
+    }
+
+    onBatteryStatusChanged(config : Configuration){
+        console.log(config);
+        let battery = config.getBattery();
         document.querySelector('#b_ischarging').textContent = (battery.charging ? 'charging' : 'not charging');
         document.querySelector('#b_level').textContent = (Math.round(battery.level * 10000) / 100) + '%';
         if (!battery.charging) {
@@ -18,8 +28,7 @@ class MyBenchMarkerListener implements BenchMarkerListener{
 }
 
 let test = function(){
-    let benchMarker = BenchMarker.create(new MyBenchMarkerListener());
-    benchMarker.fetchBatteryData();
+    BenchMarker.create(new MyBenchMarkerHandler());
 
     //document.querySelector('#isMobile').textContent = benchMarker.isMobile();
 /*

@@ -28,8 +28,8 @@
 <b>Ram size: </b>
 <div id="ramSize"></div>
 
-<b>Connection type: </b>
-<div id="connectionType"></div>
+<b>Connection Info: </b>
+<div id="connection"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.20.0/system.src.js"></script>
 <script>
@@ -45,25 +45,5 @@
     });
     System.import('./main').then(null, console.error.bind(console));
 </script>
-
-<script src="../node_modules/ua-parser-js/dist/ua-parser.min.js"></script>
-<script type="text/javascript">
-
-    var parser = new UAParser();
-    parser.setUA(navigator.userAgent);
-
-    var device = parser.getDevice();
-    var os = parser.getOS();
-
-    console.log(device);
-    console.log(os);
-
-    document.querySelector('#osInfo').innerHTML =
-        "<ul><li>" + os.name + "</li><li>" + os.version + "</li></ul>"
-    document.querySelector('#deviceInfo').innerHTML =
-        "<ul><li>" + device.vendor + "</li><li>" + device.type + "</li><li>" + device.model + "</li><ul>";
-
-</script>
-
 </body>
 </html>

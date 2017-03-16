@@ -15,3 +15,7 @@ src/ScoreHelper.js.map
 test/main.d.ts
 test/main.js
 test/main.js.map
+node_modules/
+src/Model.d.ts
+src/Model.js
+src/Model.js.map

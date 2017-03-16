@@ -1,0 +1,9 @@
+{
+  "name": "devicebenchmarker",
+  "version": "0.0.1",
+  "description": "Device Benchmarker library in TypeScript",
+  "devDependencies": {
+    "@types/jquery": "^2.0.41"
+  }
+
+}

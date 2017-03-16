@@ -34,6 +34,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.20.0/system.src.js"></script>
 <script>
     System.config({
+        map: {
+            'ua-parser-js': '../../node_modules/ua-parser-js'
+        },
         packages: {
             './../../': {
                 defaultJSExtensions: 'js'
@@ -43,7 +46,7 @@
     System.import('./main').then(null, console.error.bind(console));
 </script>
 
-<script src="../src/ua-parser.min.js"></script>
+<script src="../node_modules/ua-parser-js/dist/ua-parser.min.js"></script>
 <script type="text/javascript">
 
     var parser = new UAParser();

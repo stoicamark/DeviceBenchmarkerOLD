@@ -1,4 +1,9 @@
 import {BenchMarker, BenchMarkerListener} from "../src/BenchMarker";
+import * as ua from "ua-parser-js";
+
+declare let navigator : {
+    connection:{type:any};
+};
 
 class MyBenchMarkerListener implements BenchMarkerListener{
     onBatteryStatusChanged(battery){
@@ -34,3 +39,4 @@ let test = function(){
 };
 
 test();
+

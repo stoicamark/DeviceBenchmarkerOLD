@@ -57,7 +57,7 @@ export class BenchMarker{
     }
 
     public getScore() : number {
-        var score = ScoreHelper.batteryCoeff * BenchMarker.batteryLevel;
+        var score = ScoreHelper.batteryCoeff * BenchMarker.batteryLevel ;
         return score;
     }
 }

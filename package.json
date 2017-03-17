@@ -8,6 +8,6 @@
     "@types/cordova-plugin-network-information": "0.0.3"
   },
   "dependencies": {
-    "ua-parser-js": "^0.7.12"
+
   }
 }

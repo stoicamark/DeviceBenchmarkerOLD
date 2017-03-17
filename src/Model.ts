@@ -1,6 +1,8 @@
 /**
  * Created by LenovoZ510 on 2017. 03. 16..
  */
+import {ScoreHelper as sh} from "./ScoreHelper";
+
 export interface Battery{
     charging?: boolean;
     chargingTime?: number;
@@ -30,8 +32,7 @@ export class Configuration{
     private _connection : Connection = { type : 'not supported' };
     private _os : OperatingSystem = {};
     private _device : Device = {};
-    private _
-
+    private _downloadSpeed : number = 0; //kbps
 
     public getBattery() : Battery{
         return this._battery;
@@ -81,7 +82,34 @@ export class Configuration{
         this._device.vendor = device.vendor;
     }
 
+    public getDownloadSpeed(){
+        return this._downloadSpeed;
+    }
+
+    public setDownloadSpeed(downSpeedInKbps : number){
+        this._downloadSpeed = downSpeedInKbps;
+    }
+
     public toString(){
         return this._battery.toString() + this._connection.toString() + this._os.toString();
+    }
+
+    public getScore() : number {
+
+        let score : number;
+
+        score = sh.batteryLevelCoeff * this._battery.level +
+                sh.batteryChargingCoeff * Number(this._battery.charging) +
+                sh.batteryDischargingTimeCoeff * this._battery.dischargingTime;
+
+        switch(this._connection.type){
+            case 'wifi' : score += sh.wifiCoeff; break;
+            case 'cellular' : score += sh.cellularDataCoeff; break;
+            default: break;
+        }
+
+        score += sh.downSpeedCoeff * this._downloadSpeed;
+
+        return score;
     }
 }

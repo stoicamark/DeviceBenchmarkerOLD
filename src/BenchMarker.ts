@@ -1,6 +1,5 @@
-import {ScoreHelper} from "./ScoreHelper";
 import {Configuration} from "./Model";
-import * as UserAgent from "ua-parser-js";
+import {UAParser} from 'ua-parser-js';
 
 export interface BenchMarkerHandler{
     onBatteryStatusChanged(conf: Configuration) : void;
@@ -16,19 +15,47 @@ export class BenchMarker {
         this.handler = handler;
         this.fetchBatteryData();
         this.fetchConnectionData();
+        this.measureConnectionSpeed();
 
-        let parser = new UserAgent.UAParser();
-        parser.setUA(navigator.userAgent);
+        let parser = new UAParser(navigator.userAgent);
+
         this.config.setOsInfo(parser.getOS());
         this.config.setDevice(parser.getDevice());
+
 
         //TEST
         let os = this.config.getOsInfo();
         let dev = this.config.getDevice();
+        console.log('hello: ', os);
+        console.log('hello: ', dev);
         document.querySelector('#osInfo').innerHTML =
             "<ul><li>" + os.name + "</li><li>" + os.version + "</li></ul>";
         document.querySelector('#deviceInfo').innerHTML =
             "<ul><li>" + dev.vendor + "</li><li>" + dev.type + "</li><li>" + dev.model + "</li><ul>";
+
+
+    }
+
+    private static measureConnectionSpeed(){
+        let imageAddr = "https://upload.wikimedia.org/wikipedia/commons/2/2d/Snake_River_%285mb%29.jpg";
+        let downloadSize = 5245329; //bytes
+        let startTime : number, endTime : number;
+        let download = new Image();
+        let duration : number;
+        let bitsLoaded = downloadSize * 8;
+        startTime = (new Date()).getTime();
+        let cacheBuster = "?nnn=" + startTime;
+
+        download.src = imageAddr + cacheBuster;
+
+        download.onload = () => {
+            endTime = (new Date()).getTime();
+            duration = (endTime - startTime) / 1000;
+            let speedbps = Number((bitsLoaded / duration).toFixed(2));
+            let speedkbps = Number((speedbps / 1024).toFixed(2));
+            this.config.setDownloadSpeed(speedkbps);
+            console.log('hello', speedkbps);
+        };
     }
 
     private static handleBattery(battery){
@@ -37,7 +64,7 @@ export class BenchMarker {
     }
 
     private static fetchBatteryData() {
-        window.navigator.getBattery().then((battery) => {
+        navigator.getBattery().then((battery) => {
             this.handleBattery(battery);
             battery.onchargingchange = () => {this.handleBattery(battery);};
             battery.onlevelchange = () => {this.handleBattery(battery);};
@@ -48,7 +75,7 @@ export class BenchMarker {
     private static fetchConnectionData(){
         this.config.setConnection(navigator.connection);
         this.handler.onConnectionTypeChanged(this.config);
-        navigator.connection.onchange = () => {this.handler.onConnectionTypeChanged(this.config);}
+        //navigator.connection.onchange = () => {this.handler.onConnectionTypeChanged(this.config);}
     }
 
     public isMobile(): boolean {
@@ -61,7 +88,6 @@ export class BenchMarker {
     }
 
     public static getScore(): number {
-        let score = ScoreHelper.batteryLevelCoeff * this.config.getBattery().level;
-        return score;
+        return this.config.getScore();
     }
 }

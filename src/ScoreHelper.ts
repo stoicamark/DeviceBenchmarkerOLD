@@ -5,12 +5,11 @@
 * */
 export class ScoreHelper{
     static batteryLevelCoeff : number = 25;
-    static batteryChargingCoeff : number = 20;
+    static batteryChargingCoeff : number = 1;
     static batteryDischargingTimeCoeff : number = 10;
     static memoryCoeff : number = 10;
-    static isPluggedInCoeff : number = 40;
     static wifiCoeff : number = 40;
-    static mobileDataCoeff : number = -20;
+    static cellularDataCoeff : number = -20;
     static cpuCoeff : number = 20;
-    static bandwidthCoeff : number = 30;
+    static downSpeedCoeff : number = 30;
 }

@@ -4,12 +4,10 @@
 * The value of a coefficient describes the impact in the final score.
 * */
 export class ScoreHelper{
-    static batteryLevelCoeff : number = 25;
-    static batteryChargingCoeff : number = 1;
-    static batteryDischargingTimeCoeff : number = 10;
-    static memoryCoeff : number = 10;
-    static wifiCoeff : number = 40;
-    static cellularDataCoeff : number = -20;
-    static cpuCoeff : number = 20;
-    static downSpeedCoeff : number = 30;
+    static batteryLevelCoeff : number = .15;
+    static batteryChargingCoeff : number = .20;
+    static batteryDischargingTimeCoeff : number = .15;
+    static memorySizeCoeff : number = .05;
+    static connectionTypeCoeff : number = .30;
+    static downSpeedCoeff : number = .15;
 }

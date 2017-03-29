@@ -17,7 +17,6 @@ export interface OperatingSystem{
 
 export interface Connection{
     type?: string;
-    downlinkMax?: number;
 }
 
 export interface Device{
@@ -28,17 +27,25 @@ export interface Device{
 
 export class Configuration{
 
+    private _isMobile : boolean = false;
     private _battery : Battery = {level : 0.5};
     private _connection : Connection = { type : 'not supported' };
     private _os : OperatingSystem = {};
     private _device : Device = {};
-    private _downloadSpeed : number = 0; //kbps
+    private _downloadSpeed : number = 0; //Mbps
+    private downSpeedRangeLimit = 25; //Mbps
 
     public getBattery() : Battery{
         return this._battery;
     }
 
-    public constructor(){}
+    public getIsMobile() : boolean{
+        return this._isMobile;
+    }
+
+    public setIsMobile(isMobile : boolean){
+        this._isMobile = isMobile;
+    }
 
     /*BatteryManager - navigator.battery return value*/
     public setBattery(batteryManager : Battery) {
@@ -54,12 +61,8 @@ export class Configuration{
 
     /*NetworkInformation - navigator.connection return value*/
     public setConnection(conn : Connection) {
-        if(conn === undefined) {
-            this._connection.type = 'not supported';
-            this._connection.downlinkMax = 0;
-        }else{
-            this._connection.type = conn.type === undefined ? 'not supported' : conn.type;
-            this._connection.downlinkMax = conn.downlinkMax === undefined ? 0 : conn.downlinkMax;
+        if(conn !== undefined && conn.type !== undefined){
+            this._connection.type = conn.type;
         }
     }
 
@@ -86,8 +89,8 @@ export class Configuration{
         return this._downloadSpeed;
     }
 
-    public setDownloadSpeed(downSpeedInKbps : number){
-        this._downloadSpeed = downSpeedInKbps;
+    public setDownloadSpeed(downSpeedInMbps : number){
+        this._downloadSpeed = downSpeedInMbps;
     }
 
     public toString(){
@@ -96,19 +99,31 @@ export class Configuration{
 
     public getScore() : number {
 
-        let score : number;
+        let score : number = 0;
+
+        //these config parameters overwrites the score
+        if(this._connection.type === 'cellular' || (this._battery.level < 0.15 && this._battery.charging === false))
+            return score;
 
         score = sh.batteryLevelCoeff * this._battery.level +
                 sh.batteryChargingCoeff * Number(this._battery.charging) +
-                sh.batteryDischargingTimeCoeff * this._battery.dischargingTime;
+                sh.batteryDischargingTimeCoeff * (this._battery.dischargingTime === Infinity ? 1 : this._battery.dischargingTime);
 
         switch(this._connection.type){
-            case 'wifi' : score += sh.wifiCoeff; break;
-            case 'cellular' : score += sh.cellularDataCoeff; break;
+            case 'wifi' : score += sh.connectionTypeCoeff; break; //connectionTypeCoeff * 1
+            case undefined : score += sh.connectionTypeCoeff * .8; break; //desktop browsers doesn't support connection.type
             default: break;
         }
 
-        score += sh.downSpeedCoeff * this._downloadSpeed;
+        let downSpeedScore = 0;
+        if(this._downloadSpeed < this.downSpeedRangeLimit){
+            downSpeedScore = this._downloadSpeed / this.downSpeedRangeLimit;
+        }else{
+            downSpeedScore = 1;
+        }
+
+        score += sh.downSpeedCoeff * downSpeedScore;
+        score += sh.memorySizeCoeff; //TODO: get device memory info from somewhere
 
         return score;
     }

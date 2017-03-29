@@ -6,36 +6,14 @@
 </head>
 <body>
 
-<h2>Battery info</h2>
-
-<b>Level: </b><br>
-<div id="b_level"></div>
-
-<b>Is charging: </b><br>
-<div id="b_ischarging"></div>
-
-<b>Discharging time: </b><br>
-<div id="b_discharging_time"></div>
-
-<h2>Device detection</h2>
-
-<b>Operating system: </b>
-<div id="osInfo"></div>
-
-<b>Device info: </b>
-<div id="deviceInfo"></div>
-
-<b>Ram size: </b>
-<div id="ramSize"></div>
-
-<b>Connection Info: </b>
-<div id="connection"></div>
+<b>Your device score: </b>
+<div id="deviceScore"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.20.0/system.src.js"></script>
 <script>
     System.config({
         map: {
-            'ua-parser-js' : '../node_modules/ua-parser-js/dist/ua-parser.min.js'
+            'ua-parser-js' : '../node_modules/ua-parser-js/src/ua-parser.js'
         },
         packages: {
             './../../' : {
@@ -45,5 +23,6 @@
     });
     System.import('./main').then(null, console.error.bind(console));
 </script>
+
 </body>
 </html>

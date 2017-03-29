@@ -1,5 +1,5 @@
 import {Configuration} from "./Model";
-import {UAParser} from 'ua-parser-js';
+//import * as ua  from 'ua-parser-js';
 
 export interface BenchMarkerHandler{
     onBatteryStatusChanged(conf: Configuration) : void;
@@ -8,41 +8,39 @@ export interface BenchMarkerHandler{
 
 export class BenchMarker {
 
-    private static handler : BenchMarkerHandler;
-    public static config : Configuration = new Configuration();
+    private handlers : BenchMarkerHandler[] = [];
+    public config : Configuration = new Configuration();
 
-    public static create(handler : BenchMarkerHandler) {
-        this.handler = handler;
+    public on(handler : BenchMarkerHandler) {
+
+        this.handlers.push(handler);
+        this.config.setIsMobile(this.isMobile());
         this.fetchBatteryData();
         this.fetchConnectionData();
         this.measureConnectionSpeed();
 
-        let parser = new UAParser(navigator.userAgent);
+        //FonoApi proba
+        this.getDeviceInfo();
+
+        /*
+        console.log(ua.UAParser);
+        let parser = new ua.UAParser();
+        parser.setUA(navigator.userAgent);
 
         this.config.setOsInfo(parser.getOS());
         this.config.setDevice(parser.getDevice());
 
-
-        //TEST
-        let os = this.config.getOsInfo();
-        let dev = this.config.getDevice();
-        console.log('hello: ', os);
-        console.log('hello: ', dev);
-        document.querySelector('#osInfo').innerHTML =
-            "<ul><li>" + os.name + "</li><li>" + os.version + "</li></ul>";
-        document.querySelector('#deviceInfo').innerHTML =
-            "<ul><li>" + dev.vendor + "</li><li>" + dev.type + "</li><li>" + dev.model + "</li><ul>";
-
-
+        */
     }
 
-    private static measureConnectionSpeed(){
+
+    private measureConnectionSpeed(){
         let imageAddr = "https://upload.wikimedia.org/wikipedia/commons/2/2d/Snake_River_%285mb%29.jpg";
         let downloadSize = 5245329; //bytes
-        let startTime : number, endTime : number;
         let download = new Image();
-        let duration : number;
+        let startTime : number, endTime : number, duration : number;
         let bitsLoaded = downloadSize * 8;
+
         startTime = (new Date()).getTime();
         let cacheBuster = "?nnn=" + startTime;
 
@@ -53,17 +51,19 @@ export class BenchMarker {
             duration = (endTime - startTime) / 1000;
             let speedbps = Number((bitsLoaded / duration).toFixed(2));
             let speedkbps = Number((speedbps / 1024).toFixed(2));
-            this.config.setDownloadSpeed(speedkbps);
-            console.log('hello', speedkbps);
+            let speedmbps = Number((speedkbps / 1024).toFixed(2));
+            this.config.setDownloadSpeed(speedmbps);
         };
     }
 
-    private static handleBattery(battery){
+    private handleBattery(battery){
         this.config.setBattery(battery);
-        this.handler.onBatteryStatusChanged(this.config);
+        if(this.handlers){
+            this.handlers.slice(0).forEach(h => h.onBatteryStatusChanged(this.config));
+        }
     }
 
-    private static fetchBatteryData() {
+    private fetchBatteryData() {
         navigator.getBattery().then((battery) => {
             this.handleBattery(battery);
             battery.onchargingchange = () => {this.handleBattery(battery);};
@@ -72,10 +72,8 @@ export class BenchMarker {
         });
     }
 
-    private static fetchConnectionData(){
+    private fetchConnectionData(){
         this.config.setConnection(navigator.connection);
-        this.handler.onConnectionTypeChanged(this.config);
-        //navigator.connection.onchange = () => {this.handler.onConnectionTypeChanged(this.config);}
     }
 
     public isMobile(): boolean {
@@ -87,7 +85,23 @@ export class BenchMarker {
         return false;
     }
 
-    public static getScore(): number {
+    public getScore(): number {
         return this.config.getScore();
+    }
+
+    private getDeviceInfo() {
+
+    }
+
+    public off(handler : BenchMarkerHandler){
+        this.handlers = this.handlers.filter(h => h !== handler);
+    }
+
+    public allOff(){
+        this.handlers  = [];
+    }
+
+    public hasListener(): boolean {
+        return this.handlers.length !== 0;
     }
 }

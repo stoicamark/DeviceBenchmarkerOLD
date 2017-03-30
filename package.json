@@ -1,14 +1,36 @@
 {
-  "name": "devicebenchmarker",
-  "version": "0.0.1",
-  "description": "Device Benchmarker library in TypeScript",
-  "devDependencies": {
-    "@types/jquery": "^2.0.41",
-    "@types/ua-parser-js": "^0.7.30",
-    "@types/cordova-plugin-network-information": "0.0.3"
+  "name": "devmarker",
+  "version": "1.0.0",
+  "description": "Devmarker is a device benchmarker library based on battery usage, connection type info and download speed.",
+  "main": "main.js",
+  "directories": {
+    "test": "test"
   },
-  "dependencies" : {
-    "ua-parser-js" : "^1.0.0",
-    "jquery" : ""
-  }
+  "dependencies": {
+    "ua-parser-js": "^0.7.12"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stoicamark/DeviceBenchmarker.git"
+  },
+  "keywords": [
+    "device",
+    "benchmark",
+    "download",
+    "speed",
+    "connection",
+    "type",
+    "battery",
+    "usage"
+  ],
+  "author": "Mark Stoica",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stoicamark/DeviceBenchmarker/issues"
+  },
+  "homepage": "https://github.com/stoicamark/DeviceBenchmarker#readme"
 }

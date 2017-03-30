@@ -33,7 +33,7 @@ export class Configuration{
     private _os : OperatingSystem = {};
     private _device : Device = {};
     private _downloadSpeed : number = 0; //Mbps
-    private downSpeedRangeLimit = 25; //Mbps
+    private readonly downSpeedRangeLimit = 25; //Mbps
 
     public getBattery() : Battery{
         return this._battery;

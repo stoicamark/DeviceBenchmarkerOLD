@@ -1,5 +1,4 @@
 import {Configuration} from "./Model";
-//import * as ua  from 'ua-parser-js';
 
 export interface BenchMarkerHandler{
     onBatteryStatusChanged(conf: Configuration) : void;
@@ -22,15 +21,15 @@ export class BenchMarker {
         //FonoApi proba
         this.getDeviceInfo();
 
-        /*
-        console.log(ua.UAParser);
+/*
+        console.log(ua);
         let parser = new ua.UAParser();
         parser.setUA(navigator.userAgent);
 
         this.config.setOsInfo(parser.getOS());
         this.config.setDevice(parser.getDevice());
 
-        */
+*/
     }
 
 
@@ -64,7 +63,11 @@ export class BenchMarker {
     }
 
     private fetchBatteryData() {
-        navigator.getBattery().then((battery) => {
+        if(typeof navigator['getBattery'] === "undefined"){
+            console.log('navigator.getBattery() is undefined');
+            return;
+        }
+        navigator['getBattery']().then((battery) => {
             this.handleBattery(battery);
             battery.onchargingchange = () => {this.handleBattery(battery);};
             battery.onlevelchange = () => {this.handleBattery(battery);};

@@ -1,0 +1,17 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea/
+*.iml
+.gitignore
+src/BenchMarker.ts
+src/BenchMarker.js.map
+src/ScoreHelper.ts
+src/ScoreHelper.js.map
+test/main.ts
+test/main.js.map
+node_modules/
+src/Model.ts
+src/Model.js.map

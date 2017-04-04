@@ -49,10 +49,7 @@ export class Configuration{
 
     /*BatteryManager - navigator.battery return value*/
     public setBattery(batteryManager : Battery) {
-        this._battery.charging = batteryManager.charging;
-        this._battery.chargingTime = batteryManager.chargingTime;
-        this._battery.dischargingTime = batteryManager.dischargingTime;
-        this._battery.level = batteryManager.level;
+        this._battery = batteryManager;
     }
 
     public getConnection() {
@@ -71,8 +68,7 @@ export class Configuration{
     }
 
     public setOsInfo(os : OperatingSystem) {
-        this._os.name = os.name;
-        this._os.version = os.version;
+        this._os = os;
     }
 
     public getDevice(){
@@ -80,9 +76,7 @@ export class Configuration{
     }
 
     public setDevice(device : Device){
-        this._device.type = device.type;
-        this._device.model = device.model;
-        this._device.vendor = device.vendor;
+        this._device = device;
     }
 
     public getDownloadSpeed(){
@@ -91,10 +85,6 @@ export class Configuration{
 
     public setDownloadSpeed(downSpeedInMbps : number){
         this._downloadSpeed = downSpeedInMbps;
-    }
-
-    public toString(){
-        return this._battery.toString() + this._connection.toString() + this._os.toString();
     }
 
     public getScore() : number {

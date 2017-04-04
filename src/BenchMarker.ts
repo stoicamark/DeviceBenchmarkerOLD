@@ -1,35 +1,52 @@
-import {Configuration} from "./Model";
+import {Configuration} from "./Configuration";
+import {UAParser} from "ua-parser-js";
 
-export interface BenchMarkerHandler{
-    onBatteryStatusChanged(conf: Configuration) : void;
-    onConnectionTypeChanged(conf: Configuration) : void;
+declare function require(name:string);
+let UAP = require("ua-parser-js");
+
+export interface IConfigurationEventHandler{
+    (conf?: Configuration) : void;
 }
 
-export class BenchMarker {
+export interface IBenchMarkerListener{
+    on(handler : IConfigurationEventHandler) : void;
+    off(handler : IConfigurationEventHandler) : void;
+    allOff() : void;
+    hasListener() : boolean;
+}
 
-    private handlers : BenchMarkerHandler[] = [];
+export class BenchMarker implements IBenchMarkerListener{
+
+    private handlers : IConfigurationEventHandler[] = [];
     public config : Configuration = new Configuration();
 
-    public on(handler : BenchMarkerHandler) {
-
+    public on(handler : IConfigurationEventHandler) {
         this.handlers.push(handler);
         this.config.setIsMobile(this.isMobile());
         this.fetchBatteryData();
         this.fetchConnectionData();
         this.measureConnectionSpeed();
 
-        //FonoApi proba
-        this.getDeviceInfo();
-
-/*
-        console.log(ua);
-        let parser = new ua.UAParser();
-        parser.setUA(navigator.userAgent);
+        let parser : UAParser = new UAP(navigator.userAgent);
 
         this.config.setOsInfo(parser.getOS());
         this.config.setDevice(parser.getDevice());
+        console.log(parser.getEngine());
+        console.log(parser.getCPU());
+        console.log(parser.getBrowser());
 
-*/
+    }
+
+    public off(handler : IConfigurationEventHandler){
+        this.handlers = this.handlers.filter(h => h !== handler);
+    }
+
+    public allOff(){
+        this.handlers  = [];
+    }
+
+    public hasListener(): boolean {
+        return this.handlers.length !== 0;
     }
 
 
@@ -58,7 +75,8 @@ export class BenchMarker {
     private handleBattery(battery){
         this.config.setBattery(battery);
         if(this.handlers){
-            this.handlers.slice(0).forEach(h => h.onBatteryStatusChanged(this.config));
+            //slice for shallow copy. The original array won't be modified.
+            this.handlers.slice(0).forEach(h => h(this.config));
         }
     }
 
@@ -92,19 +110,4 @@ export class BenchMarker {
         return this.config.getScore();
     }
 
-    private getDeviceInfo() {
-
-    }
-
-    public off(handler : BenchMarkerHandler){
-        this.handlers = this.handlers.filter(h => h !== handler);
-    }
-
-    public allOff(){
-        this.handlers  = [];
-    }
-
-    public hasListener(): boolean {
-        return this.handlers.length !== 0;
-    }
 }

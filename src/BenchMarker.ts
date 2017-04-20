@@ -1,5 +1,6 @@
-import {Configuration} from "./Configuration";
+import {Configuration, Battery} from "./Configuration";
 import {UAParser} from "ua-parser-js";
+import {Promise} from "es6-promise";
 
 declare function require(name:string);
 declare let navigator : {userAgent : any, connection : any};
@@ -7,7 +8,7 @@ declare let navigator : {userAgent : any, connection : any};
 let UAP = require("ua-parser-js");
 
 export interface IConfigurationEventHandler{
-    (conf?: Configuration) : void;
+    (conf?: Configuration) : any;
 }
 
 export interface IBenchMarkerListener{
@@ -81,7 +82,7 @@ export class BenchMarker implements IBenchMarkerListener{
         this.trigger();
     }
 
-    private fetchBatteryData() {
+    private fetchBatteryData(){
         if(typeof navigator['getBattery'] === "undefined"){
             console.log('navigator.getBattery() is undefined');
             return;
@@ -96,5 +97,15 @@ export class BenchMarker implements IBenchMarkerListener{
 
     private fetchConnectionData(){
         this.config.setConnection(navigator.connection);
+    }
+
+    public getascore(): Promise<Configuration> {
+        return new Promise<Configuration>((resolve, reject) => {
+            this.on(config => resolve(config));
+        });
+    }
+
+    public asycAwait(ms: number){
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 }

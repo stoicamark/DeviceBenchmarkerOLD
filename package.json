@@ -1,9 +1,9 @@
 {
   "name": "devmarker",
-  "version": "1.0.1",
+  "version": "1.0.8",
+  "main": "src/BenchMarker.js",
   "description": "Devmarker is a device benchmarker library based on battery usage, connection type info and download speed.",
   "dependencies": {
-    "require": "^2.4.20",
     "ua-parser-js": "^0.7.12"
   },
   "devDependencies": {},

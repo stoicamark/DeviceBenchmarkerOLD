@@ -2,5 +2,10 @@
 .gitignore
 .npmignore
 node_modules/
+test/
 *.js.map
-*.ts
+src/BenchMarker.ts
+src/Configuration.ts
+src/ScoreHelper.ts
+tsconfig.json
+README.md

@@ -17,7 +17,6 @@ export interface Device {
     vendor?: string;
 }
 export declare class Configuration {
-    private _isMobile;
     private _battery;
     private _connection;
     private _os;
@@ -25,8 +24,6 @@ export declare class Configuration {
     private _downloadSpeed;
     private readonly downSpeedRangeLimit;
     getBattery(): Battery;
-    getIsMobile(): boolean;
-    setIsMobile(isMobile: boolean): void;
     setBattery(batteryManager: Battery): void;
     getConnection(): Connection;
     setConnection(conn: Connection): void;
@@ -34,7 +31,8 @@ export declare class Configuration {
     setOsInfo(os: OperatingSystem): void;
     getDevice(): Device;
     setDevice(device: Device): void;
-    getDownloadSpeed(): number;
+    getDownloadSpeed(): any;
     setDownloadSpeed(downSpeedInMbps: number): void;
     getScore(): number;
+    getIsMobile(): boolean;
 }

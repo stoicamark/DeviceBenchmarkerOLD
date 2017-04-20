@@ -99,9 +99,9 @@ export class BenchMarker implements IBenchMarkerListener{
         this.config.setConnection(navigator.connection);
     }
 
-    public getascore(): Promise<Configuration> {
-        return new Promise<Configuration>((resolve, reject) => {
-            this.on(config => resolve(config));
+    public getascore(): Promise<number> {
+        return new Promise<number>((resolve, reject) => {
+            this.on(config => resolve(config.getScore()));
         });
     }
 

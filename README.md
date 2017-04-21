@@ -11,6 +11,9 @@ according to the listed parameters:
 * network connection type (wifi, cellular, other)
 * download speed
 
-The library is published as an npm package (devmarker). <br>
+The library uses only the browser API for gathering all the informations needed for scoring.
+
+It is published on [npm](https://www.npmjs.com/package/devmarker). <br>
 You can pull it to your project easily: `npm install devmarker` <br>
-Add it to your project dependencies: `npm install devmarker --save`
+And you can also add it to your project dependencies: `npm install devmarker --save` <br>
+

@@ -30,11 +30,10 @@ let test1 = () => {
 
 let test2 = async () => {
     let devMarker = new BenchMarker();
-    let config: Configuration = await devMarker.getascore();
-    printConfigurationDetails(config);
+    console.log(await devMarker.getascore());
 };
 
-//test1();
+test1();
 test2();
 
 

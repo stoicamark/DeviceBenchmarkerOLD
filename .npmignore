@@ -2,7 +2,7 @@
 .gitignore
 .npmignore
 node_modules/
-test/
+web/
 *.js.map
 src/BenchMarker.ts
 src/Configuration.ts

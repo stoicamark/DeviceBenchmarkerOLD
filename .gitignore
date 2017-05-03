@@ -3,5 +3,6 @@
 .idea/
 *.d.ts
 *.js
-test/
+!*spec.js
+web/
 node_modules/

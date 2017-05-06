@@ -1,8 +1,7 @@
 .gitignore
 .npmignore
-.idea/
-*.d.ts
+.travis.yml
+.idea/*
 *.js
-!*spec.js
-web/
-node_modules/
+*.js.map
+node_modules

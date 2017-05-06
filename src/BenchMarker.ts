@@ -1,4 +1,4 @@
-import {Configuration, Battery} from "./Configuration";
+import {Configuration} from "./Configuration";
 import {UAParser} from "ua-parser-js";
 import {Promise} from "es6-promise";
 
@@ -98,7 +98,7 @@ export class BenchMarker implements IBenchMarkerListener{
     private fetchConnectionData(){
         this.config.setConnection(navigator.connection);
     }
-
+/*
     public getascore(): Promise<number> {
         return new Promise<number>((resolve, reject) => {
             this.on(config => resolve(config.getScore()));
@@ -107,5 +107,5 @@ export class BenchMarker implements IBenchMarkerListener{
 
     public asycAwait(ms: number){
         return new Promise(resolve => setTimeout(resolve, ms));
-    }
+    }*/
 }

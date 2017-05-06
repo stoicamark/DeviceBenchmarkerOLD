@@ -80,7 +80,7 @@ export class Configuration{
 
     public getScore() : number {
 
-        let score : number = 0;
+        var score : number = 0;
 
         //these config parameters overwrites the score
         if(this._connection.type === 'cellular' || (this._battery.level < 0.15 && this._battery.charging === false))
@@ -96,7 +96,7 @@ export class Configuration{
             default: break;
         }
 
-        let downSpeedScore = 0;
+        var downSpeedScore = 0;
         if(this._downloadSpeed < this.downSpeedRangeLimit){
             downSpeedScore = this._downloadSpeed / this.downSpeedRangeLimit;
         }else{

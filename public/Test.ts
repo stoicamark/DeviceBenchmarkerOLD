@@ -1,5 +1,5 @@
-import {BenchMarker} from "./BenchMarker";
-import {Configuration} from "./Configuration";
+import {BenchMarker} from "../src/BenchMarker";
+import {Configuration} from "../src/Configuration";
 
 let printConfigurationDetails = (config : Configuration) => {
     document.querySelector("#configDetails").innerHTML =
@@ -27,13 +27,13 @@ let test1 = () => {
         devMarker.allOff();
     });
 };
-
+/*
 let test2 = async () => {
     let devMarker = new BenchMarker();
     console.log(await devMarker.getascore());
-};
+};*/
 
 test1();
-test2();
+//test2();
 
 

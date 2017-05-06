@@ -1,11 +1,9 @@
-.idea/
+.idea/*
 .gitignore
 .npmignore
-node_modules/
-web/
+web/*
 *.js.map
-src/BenchMarker.ts
-src/Configuration.ts
-src/ScoreHelper.ts
+*.ts
+!src/*.d.ts
+.travis.yml
 tsconfig.json
-README.md

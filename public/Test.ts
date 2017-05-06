@@ -1,5 +1,5 @@
-import {BenchMarker} from "../src/BenchMarker";
-import {Configuration} from "../src/Configuration";
+import {BenchMarker} from "./BenchMarker";
+import {Configuration} from "./Configuration";
 
 let printConfigurationDetails = (config : Configuration) => {
     document.querySelector("#configDetails").innerHTML =

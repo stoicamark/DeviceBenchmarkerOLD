@@ -27,7 +27,7 @@ export interface Device{
 
 export class Configuration{
 
-    private _battery: Battery;
+    private _battery: Battery = {};
     private _connection : Connection = {type : "not supported"};
     private _os : OperatingSystem;
     private _device : Device;
@@ -86,9 +86,15 @@ export class Configuration{
         if(this._connection.type === 'cellular' || (this._battery.level < 0.15 && this._battery.charging === false))
             return score;
 
-        score = sh.batteryLevelCoeff * this._battery.level +
-                sh.batteryChargingCoeff * Number(this._battery.charging) +
-                sh.batteryDischargingTimeCoeff * (this._battery.dischargingTime === Infinity ? 1 : this._battery.dischargingTime);
+        console.log(this._battery.charging);
+        console.log(this._battery.level);
+        score = sh.batteryLevelCoeff * this._battery.level;
+
+        if(this._battery.charging === true)
+            score += sh.batteryChargingCoeff;
+
+        if(this._battery.dischargingTime !== undefined)
+            score += sh.batteryDischargingTimeCoeff * (this._battery.dischargingTime === Infinity ? 1 : this._battery.dischargingTime);
 
         switch(this._connection.type){
             case "wifi" : score += sh.connectionTypeCoeff; break; //connectionTypeCoeff * 1

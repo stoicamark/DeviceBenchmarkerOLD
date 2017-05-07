@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">44% </span>
+        <span class="strong">49.12% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>22/50</span>
+        <span class='fraction'>28/57</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">10% </span>
+        <span class="strong">33.33% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>2/20</span>
+        <span class='fraction'>8/24</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">35.71% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>5/14</span>
+        <span class='fraction'>7/14</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">44% </span>
+        <span class="strong">49.12% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>22/50</span>
+        <span class='fraction'>28/57</span>
       </div>
     </div>
   </div>
@@ -125,13 +125,26 @@
 80
 81
 82
-83</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+83
+84
+85
+86
+87
+88</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
@@ -141,28 +154,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -171,13 +177,17 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -215,6 +225,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var ScoreHelper_1 = require("./ScoreHelper");
 var Configuration = (function () {
     function Configuration() {
+        this._battery = {};
         this._connection = { type: "not supported" };
         this.downSpeedRangeLimit = 25; //Mbps
     }
@@ -222,16 +233,16 @@ var Configuration = (function () {
 <span class="cstat-no" title="statement not covered" >        return this._battery;</span>
     };
     /*BatteryManager - navigator.battery return value*/
-    Configuration.prototype.setBattery = function (batteryManager) <span class="fstat-no" title="function not covered" >{</span>
-<span class="cstat-no" title="statement not covered" >        this._battery = batteryManager;</span>
+    Configuration.prototype.setBattery = function (batteryManager) {
+        this._battery = batteryManager;
     };
     Configuration.prototype.getConnection = function () <span class="fstat-no" title="function not covered" >{</span>
 <span class="cstat-no" title="statement not covered" >        return this._connection;</span>
     };
     /*NetworkInformation - navigator.connection return value*/
     Configuration.prototype.setConnection = function (conn) {
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (conn !== undefined &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >conn.type !== undefined)</span> {
-<span class="cstat-no" title="statement not covered" >            this._connection.type = conn.type;</span>
+        if (conn !== undefined &amp;&amp; conn.type !== undefined) {
+            this._connection.type = conn.type;
         }
     };
     Configuration.prototype.getOsInfo = function () <span class="fstat-no" title="function not covered" >{</span>
@@ -252,14 +263,18 @@ var Configuration = (function () {
     Configuration.prototype.setDownloadSpeed = function (downSpeedInMbps) <span class="fstat-no" title="function not covered" >{</span>
 <span class="cstat-no" title="statement not covered" >        this._downloadSpeed = downSpeedInMbps;</span>
     };
-    Configuration.prototype.getScore = function () <span class="fstat-no" title="function not covered" >{</span>
-        var score = <span class="cstat-no" title="statement not covered" >0;</span>
+    Configuration.prototype.getScore = function () {
+        var score = 0;
         //these config parameters overwrites the score
-<span class="cstat-no" title="statement not covered" >        if (this._connection.type === 'cellular' || (this._battery.level &lt; 0.15 &amp;&amp; this._battery.charging === false))</span>
-<span class="cstat-no" title="statement not covered" >            return score;</span>
-<span class="cstat-no" title="statement not covered" >        score = ScoreHelper_1.ScoreHelper.batteryLevelCoeff * this._battery.level +</span>
-            ScoreHelper_1.ScoreHelper.batteryChargingCoeff * Number(this._battery.charging) +
-            ScoreHelper_1.ScoreHelper.batteryDischargingTimeCoeff * (this._battery.dischargingTime === Infinity ? 1 : this._battery.dischargingTime);
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (this._connection.type === 'cellular' || (this._battery.level &lt; 0.15 &amp;&amp; this._battery.charging === false))
+            return score;
+<span class="cstat-no" title="statement not covered" >        console.log(this._battery.charging);</span>
+<span class="cstat-no" title="statement not covered" >        console.log(this._battery.level);</span>
+<span class="cstat-no" title="statement not covered" >        score = ScoreHelper_1.ScoreHelper.batteryLevelCoeff * this._battery.level;</span>
+<span class="cstat-no" title="statement not covered" >        if (this._battery.charging === true)</span>
+<span class="cstat-no" title="statement not covered" >            score += ScoreHelper_1.ScoreHelper.batteryChargingCoeff;</span>
+<span class="cstat-no" title="statement not covered" >        if (this._battery.dischargingTime !== undefined)</span>
+<span class="cstat-no" title="statement not covered" >            score += ScoreHelper_1.ScoreHelper.batteryDischargingTimeCoeff * (this._battery.dischargingTime === Infinity ? 1 : this._battery.dischargingTime);</span>
 <span class="cstat-no" title="statement not covered" >        switch (this._connection.type) {</span>
             case "wifi":
 <span class="cstat-no" title="statement not covered" >                score += ScoreHelper_1.ScoreHelper.connectionTypeCoeff;</span>
@@ -295,7 +310,7 @@ exports.Configuration = Configuration;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat May 06 2017 13:14:42 GMT+0200 (Central Europe Daylight Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun May 07 2017 10:24:55 GMT+0200 (Central Europe Daylight Time)
 </div>
 </div>
 <script src="../prettify.js"></script>

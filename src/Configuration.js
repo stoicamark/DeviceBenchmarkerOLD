@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var ScoreHelper_1 = require("./ScoreHelper");
 var Configuration = (function () {
     function Configuration() {
+        this._battery = {};
         this._connection = { type: "not supported" };
         this.downSpeedRangeLimit = 25; //Mbps
     }
@@ -48,9 +49,13 @@ var Configuration = (function () {
         //these config parameters overwrites the score
         if (this._connection.type === 'cellular' || (this._battery.level < 0.15 && this._battery.charging === false))
             return score;
-        score = ScoreHelper_1.ScoreHelper.batteryLevelCoeff * this._battery.level +
-            ScoreHelper_1.ScoreHelper.batteryChargingCoeff * Number(this._battery.charging) +
-            ScoreHelper_1.ScoreHelper.batteryDischargingTimeCoeff * (this._battery.dischargingTime === Infinity ? 1 : this._battery.dischargingTime);
+        console.log(this._battery.charging);
+        console.log(this._battery.level);
+        score = ScoreHelper_1.ScoreHelper.batteryLevelCoeff * this._battery.level;
+        if (this._battery.charging === true)
+            score += ScoreHelper_1.ScoreHelper.batteryChargingCoeff;
+        if (this._battery.dischargingTime !== undefined)
+            score += ScoreHelper_1.ScoreHelper.batteryDischargingTimeCoeff * (this._battery.dischargingTime === Infinity ? 1 : this._battery.dischargingTime);
         switch (this._connection.type) {
             case "wifi":
                 score += ScoreHelper_1.ScoreHelper.connectionTypeCoeff;

@@ -3,5 +3,6 @@
 .travis.yml
 .idea/*
 *.js
+!gulpfile.js
 *.js.map
 node_modules

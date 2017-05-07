@@ -27,8 +27,8 @@
     "webpack-dev-server": "^1.16.3"
   },
   "scripts": {
-    "test": "node ./node_modules/karma/bin/karma start --single-run --browsers PhantomJS",
-    "test-gulp": "gulp"
+    //"test": "node ./node_modules/karma/bin/karma start --single-run --browsers PhantomJS",
+    "test": "gulp test"
   },
   "repository": {
     "type": "git",

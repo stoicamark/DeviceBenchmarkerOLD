@@ -2,6 +2,7 @@
 import {expect} from "chai";
 import {BenchMarker} from "../src/BenchMarker";
 import {Configuration} from "../src/Configuration";
+import {Promise} from "es6-promise";
 
 declare function describe(desc: string, callBack);
 declare function it(desc: string, callBack);
@@ -21,10 +22,15 @@ describe("BenchMarker", ()=>{
     });
 
     it("should provide a score when configuration changes", ()=>{
+        let val =navigator['getBattery'];
+        navigator['getBattery'] = ()=>{return new Promise<any>((resolve, reject)=>{resolve({})});};
         benchMarker.on((conf:Configuration) => {
             let score = conf.getScore();
             expect(score).to.be.undefined;
         });
+        navigator['getBattery'].onchargingchange();
+
+        navigator['getBattery'] = val;
     });
 
     it("the provided score must be above 0 and below 1", ()=>{

@@ -65,7 +65,7 @@ module.exports = function(config) {
             require("karma-phantomjs-launcher"),
             require("karma-spec-reporter")
         ],
-
+        autoWatch : false,
         browsers: ['PhantomJS']
     });
 };

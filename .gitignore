@@ -4,5 +4,6 @@
 .idea/*
 *.js
 !gulpfile.js
+!karma.conf.js
 *.js.map
 node_modules

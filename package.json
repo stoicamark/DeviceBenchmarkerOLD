@@ -27,7 +27,7 @@
     "webpack-dev-server": "^1.16.3"
   },
   "scripts": {
-    "test": "gulp test"
+    "test": "karma start ./karma.conf.js"
   },
   "repository": {
     "type": "git",
